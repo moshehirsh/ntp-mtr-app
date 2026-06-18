@@ -163,7 +163,8 @@ export function InterviewScreen({ stakeholder, interview, questionnaire, onBack,
       if (updated.respondent_email === undefined) { updated = { ...updated, respondent_email: "" }; changed = true; }
       if (updated.respondent_phone === undefined) { updated = { ...updated, respondent_phone: "" }; changed = true; }
       if (updated.additional_contacts === undefined) { updated = { ...updated, additional_contacts: [] }; changed = true; }
-
+      if (updated.enumerator_comments === undefined) { updated = { ...updated, enumerator_comments: "" }; changed = true; }
+      
       // Auto-fill interview date if not already set
       if (!updated.answers["A07"]) {
         const today = new Date().toISOString().slice(0, 10);
@@ -549,12 +550,23 @@ function BarrierAnalysis({
           placeholder="Your recommended change…"
           maxLength={500}
         />
-        <div className="notes">Max 500 characters.</div>
+       <div className="notes">Max 500 characters.</div>
+      </div>
+
+      <div className="question">
+        <div className="label">
+          <span className="section-code">T2_ENUM</span>
+          Enumerator's impressions and comments (your own notes — not read to the respondent).
+        </div>
+        <textarea
+          value={iv.enumerator_comments || ""}
+          onChange={(e) => setIv((p) => ({ ...p, enumerator_comments: e.target.value, updatedAt: new Date().toISOString() }))}
+          placeholder="Your impressions, context, anything notable about this interview…"
+        />
       </div>
     </div>
   );
 }
-
 // ----------------- Review -----------------
 function ReviewScreen({ iv, questionnaire }: { iv: Interview; questionnaire: Questionnaire }) {
   const allT1 = questionnaire.sections.flatMap((s) => s.questions);
