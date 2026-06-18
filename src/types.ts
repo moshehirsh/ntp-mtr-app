@@ -93,6 +93,7 @@ export interface Interview {
   barriers: number[];       // T2_BAR multi-select values
   barrier_other: string;    // T2_BAR_OTH
   recommendation: string;   // T2_OPEN
+  enumerator_comments: string;   // enumerator's own impressions (not read to respondent)
   gps?: GpsCoords;          // GPS at interview start (hidden from UI)
   // Added fields
   respondent_email: string;
